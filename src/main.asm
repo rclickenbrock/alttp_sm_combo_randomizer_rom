@@ -1,3 +1,4 @@
+asar 1.60
 exhirom
 
 ; --- Macros and stuff ---
@@ -17,6 +18,7 @@ incsrc "multiworld/multiworld.asm"          ; Common multiworld features
 ; --- Super Metroid code ---
 incsrc "sm/config.asm"                      ; Super Metroid configuration flags
 incsrc "sm/hirom.asm"                       ; Super Metroid ExHiROM patch
+incsrc "sm/save.asm"                        ; Super Metroid Save/Load patches and hooks
 incsrc "sm/transition.asm"                  ; Super Metroid Transition patch
 incsrc "sm/teleport.asm"                    ; Super Metroid Teleport patch
 incsrc "sm/randomizer/randomizer.asm"       ; Super Metroid Randomizer patches
@@ -31,6 +33,7 @@ incsrc "sm/max_ammo.asm"                    ; Super Metroid max ammo patch by pe
 incsrc "sm/multiworld.asm"                  ; Super Metroid Multiworld support features
 incsrc "sm/sprite/sprite.asm"               ; Super Metroid custom Samus sprite "engine" by Artheau
 incsrc "sm/titlescreen.asm"                 ; Super Metroid Upload New Title Screen GFX
+incsrc "sm/menus.asm"                       ; Super Metroid main menu patches
 
 ; --- ALTTP code ---
 incsrc "z3/hirom.asm"	                    ; ALTTP ExHiROM patch

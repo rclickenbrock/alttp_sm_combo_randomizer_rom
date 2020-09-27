@@ -16,7 +16,7 @@ alttp_new_game:
     sta.l $a06000,x
     inx
     inx
-    cpx #$2000
+    cpx #$0500
     bne -
 
     jsl zelda_fix_checksum

@@ -1,18 +1,5 @@
 ; Transition into Super Metroid
 
-org $c18003
-base $818003
-    jml sm_save_hook
-
-org $c1807F
-base $81807F
-    jml sm_save_done_hook
-
-org $c18087
-base $818087
-    jml sm_load_hook
-
-
 ; Place all the transition code in the top of the upper bank AA/EA (free space in SM)
 org $eafd00
 base $aafd00
@@ -163,13 +150,12 @@ sm_fix_checksum:
     php
 
      %ai16()
-    
     lda $14
     pha
     stz $14
-    ldx #$0010
+    ldx #$0000
  -
-    lda.l $a16000,x
+    lda.l !SRAM_SM_START,x
     clc
     adc $14
     sta $14

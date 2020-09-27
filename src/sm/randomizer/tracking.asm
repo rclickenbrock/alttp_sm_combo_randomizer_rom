@@ -379,8 +379,6 @@ load_stats:
     phx
     pha
     ldx #$0000
-    lda $7e0952
-    bne +
 -
     lda !SRAM_SM_STATS, x
     sta $7ffc00, x
@@ -388,27 +386,7 @@ load_stats:
     inx
     cpx #$0040
     bne -
-    jmp .end
-+   
-    cmp #$0001
-    bne +
-    lda !SRAM_SM_STATS+$40, x
-    sta $7ffc00, x
-    inx
-    inx
-    cpx #$0040
-    bne -
-    jmp .end
-+   
-    lda !SRAM_SM_STATS+$80, x
-    sta $7ffc00, x
-    inx
-    inx
-    cpx #$0040
-    bne -
-    jmp .end
 
-.end:
     pla
     plx
     rtl
@@ -417,8 +395,6 @@ save_stats:
     phx
     pha
     ldx #$0000
-    lda $7e0952
-    bne +
 -
     lda $7ffc00, x
     sta !SRAM_SM_STATS, x
@@ -426,27 +402,7 @@ save_stats:
     inx
     cpx #$0040
     bne -
-    jmp .end
-+   
-    cmp #$0001
-    bne +
-    lda $7ffc00, x
-    sta !SRAM_SM_STATS+$40, x
-    inx
-    inx
-    cpx #$0040
-    bne -
-    jmp .end
-+   
-    lda $7ffc00, x
-    sta !SRAM_SM_STATS+$80, x
-    inx
-    inx
-    cpx #$0040
-    bne -
-    jmp .end
 
-.end:
     pla
     plx
     rtl
@@ -510,4 +466,4 @@ game_end:
     lda #$000a
     jsl $90f084
     rtl
-warnpc $e1ffff
+warnpc $a20000

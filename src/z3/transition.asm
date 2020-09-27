@@ -66,7 +66,6 @@ transition_to_zelda:
 
     %a8()
     sta $7b
-    sta $a063ca
     cmp.b #$40
     bne +
     lda #$01
@@ -268,16 +267,6 @@ zelda_copy_sram:
     php
     phb
 
-    rep #$20
-    
-    ;lda $C8
-    ;asl a
-    ;inc
-    ;inc
-    lda #$0000
-    sta $a07ffe     ; Always set save slot to 1 for now
-    
-    sep #$20
     %ai16()
     pea $7e7e
     plb
@@ -325,16 +314,6 @@ zelda_fix_checksum:
     phx
     php
     %ai16()
-    lda $00
-    pha
-
-    ldx #$0000              ; Copy main SRAM to backup SRAM
--
-    lda.l $a06000,x
-    sta.l $a06f00,x
-    inx : inx
-    cpx #$04fe
-    bne -
 
     ldx #$0000
     lda #$0000
@@ -346,13 +325,11 @@ zelda_fix_checksum:
     cpx #$04fe
     bne -
 
-    sta $00
+    pha
     lda #$5a5a
     sec
-    sbc $00
-    ;sta $7EF4fe
+    sbc $01,s
     sta $a064fe
-    sta $a073fe
     pla
     plp
     plx

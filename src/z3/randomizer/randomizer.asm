@@ -54,6 +54,8 @@ incsrc treekid.asm
 incsrc spriteswap.asm
 incsrc sharedplayerpalettefix.asm
 incsrc fairyfountainrooms.asm
+incsrc playerselect.asm
+incsrc playerselecttext.asm
 
 org $cae980             ; Free space in SM bank 85
 base $8ae980
@@ -421,6 +423,9 @@ GiveRupeeGift:
 
 org $1CFD69
 Main_ShowTextMessage:
+
+org $0CCEB2
+Module_SelectFile_loadSram:
 
 org $0DBA71
 GetRandomInt:

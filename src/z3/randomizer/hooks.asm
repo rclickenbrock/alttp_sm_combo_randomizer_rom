@@ -56,6 +56,47 @@ JSL.l OnDungeonExit : NOP #2
 ;--------------------------------------------------------------------------------
 
 ;================================================================================
+; Remove Mirrored copy of save file
+;--------------------------------------------------------------------------------
+; Saving to mirrored copy
+org $00895D ; <- 0095D - Bank00.asm : 1286 (LDA $7EF000, X : STA $0000, Y : STA $0F00, Y)
+SKIP 7 : NOP #3
+SKIP 7 : NOP #3
+SKIP 7 : NOP #3
+SKIP 7 : NOP #3
+SKIP 7 : NOP #3
+org $0089BA ; Bank00.asm : 1320 (STA $7004FE, X : STA $7013FE, X)
+NOP #4
+;--------------------------------------------------------------------------------
+; Clearing mirrored copy on file erase
+org $0CD4E7 ; <- 654E7 - Bank0C.asm : 2282 (STA $700400, X : STA $700F00, X : STA $701000, X : STA $701100, X)
+NOP #20
+;--------------------------------------------------------------------------------
+
+;================================================================================
+; Remove storage of selected file index from end of vanilla SRAM
+;--------------------------------------------------------------------------------
+org $0087EB ; <- Bank00.asm : 986 (STA $7EC500 : STA $701FFE)
+BRA AfterFileWrittenChecks
+;Also skip totally redundant checking and clearing the "file written" marker,
+;since it is not even useful in the original code, much less with only one save slot
+org $00881f ; <- Bank00.asm : 1011 (STY $01FE)
+AfterFileWrittenChecks:
+;--------------------------------------------------------------------------------
+org $008951 ; <- Bank00.asm : 1278 (LDX $1FFE : LDA $00848A, X : TAY : PHY)
+LDX #$0002
+;--------------------------------------------------------------------------------
+org $0CDB4C ; <- Bank0C.asm : 3655 (LDA $C8 : ASL A : INC #2 : STA $701FFE : TAX)
+NOP #4
+;--------------------------------------------------------------------------------
+org $09F5EA ; <- module_death.asm : 510 (LDA $701FFE : TAX : DEX #2)
+LDA.w #$0002 : NOP
+;--------------------------------------------------------------------------------
+org $0EEFEB ; <- vwf.asm : 310 (LDA $701FFE : TAX)
+LDA.w #$0002 : NOP
+;--------------------------------------------------------------------------------
+
+;================================================================================
 ; Infinite Bombs / Arrows / Magic
 ;--------------------------------------------------------------------------------
 ; org $08A17A ; <- 4217A - ancilla_arrow.asm : 42 (AND.b #$04 : BEQ .dont_spawn_sparkle)
